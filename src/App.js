@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import LinearProgress from '@material-ui/core/LinearProgress';
 import "./App.css";
-import datajson from "./data2.json"
 
 const App = () => {
   var data = {
@@ -217,14 +216,17 @@ const App = () => {
   }
 
   useEffect(() => {
+    fetch(`${process.env.PUBLIC_URL}/data2.json`)
+      .then(response => response.json())
+      .then(response => console.log(response))
+
     // loadMovies();
     // loadCharacters();
     // loadPlanets();
     // loadSpecies();
     // loadSpaceships();
     // loadVehicles();
-    console.log(datajson)
-    console.log(datajson.crew)
+    
   }, []);
 
   return (

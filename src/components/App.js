@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import { LinearProgress, Button } from "@material-ui/core";
 import "./App.css";
 import Character from "./cards/Character";
 
-const App = () => {
+import { setCard } from "../actions/card";
+
+const App = ({ selectedCard, setCard }) => {
   const [data, setData] = useState({
     movies: [],
     characters: [],
@@ -72,7 +76,8 @@ const App = () => {
         variant="contained"
         color="primary"
         disabled={!allLoaded}
-        onClick={() => setCharacterId(Math.floor(Math.random() * 82))}
+        // onClick={() => setCharacterId(Math.floor(Math.random() * 82))}
+        onClick={() => setCard("asdf", 5)}
       >
         Random character
       </Button>
@@ -83,4 +88,15 @@ const App = () => {
   );
 };
 
-export default App;
+// PropTypes:
+App.propTypes = {
+  selectedCard: PropTypes.object.isRequired,
+  setCard: PropTypes.func.isRequired,
+};
+
+// mapStateToProps:
+const mapStateToProps = (state) => ({
+  selectedCard: state.card.selectedCard,
+});
+
+export default connect(mapStateToProps, { setCard })(App);

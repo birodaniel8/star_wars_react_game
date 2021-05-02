@@ -7,6 +7,6 @@ export const setCard = (cardType, selectedId) => (dispatch) => {
     payload: {
       type: cardType,
       id: selectedId,
-    }
-  })
-}
+    },
+  });
+};

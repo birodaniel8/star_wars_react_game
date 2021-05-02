@@ -1,11 +1,14 @@
 import React from "react";
+import { connect } from "react-redux";
+import { PropTypes } from "prop-types";
 import { getPlanet, getSpecies, getMovie } from "./GetFunctions"
 import { Button } from "@material-ui/core";
 
+import { setCard } from "../../actions/card";
 
-const Character = ({ selected, data }) => {
+const Character = ({ selected, data, setCard }) => {
   const c = data.characters[selected];
-  // console.log(c);
+  console.log(c);
 
 
   if (Object.entries(data)
@@ -15,7 +18,7 @@ const Character = ({ selected, data }) => {
       <div>
         <h1>{c.name}</h1>
         <p>
-          <b>Homeworld:</b> <Button variant="contained">{getPlanet(c.homeworld, data)}</Button>
+          <b>Homeworld:</b> <Button variant="contained" onClick={() => setCard("planet", 1)}>{getPlanet(c.homeworld, data)}</Button>
         </p>
         <p>
           <b>Species:</b> <Button variant="contained">{getSpecies(c.species[0], data)}</Button>
@@ -36,4 +39,15 @@ const Character = ({ selected, data }) => {
   }
 };
 
-export default Character;
+// PropTypes:
+Character.propTypes = {
+  selected: PropTypes.number.isRequired,
+  setCard: PropTypes.func.isRequired,
+};
+
+// mapStateToProps:
+const mapStateToProps = (state) => ({
+  data: state.data.data,
+});
+
+export default connect(mapStateToProps, {setCard})(Character);

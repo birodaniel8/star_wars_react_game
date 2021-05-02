@@ -3,58 +3,49 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { LinearProgress, Button } from "@material-ui/core";
 import "./App.css";
-import Character from "./cards/Character";
+import CardSelector from "./CardSelector"
 
 import { setCard } from "../actions/card";
+import { loadData } from "../actions/data";
 
-const App = ({ selectedCard, setCard }) => {
-  const [data, setData] = useState({
-    movies: [],
-    characters: [],
-    planets: [],
-    species: [],
-    spaceships: [],
-    vehicles: [],
-  });
+const App = ({ data, selectedCard, setCard, loadData }) => {
   const [allLoaded, setAllLoaded] = useState(false);
-  const [cardType, setCardType] = useState(<div/>)
-  const [characterId, setCharacterId] = useState(0);
 
-  const loadData = () => {
+  const loadAllData = () => {
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/films.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, movies: response["items"] }));
+        loadData({movies: response["items"]})
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/people.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, characters: response["items"] }));
+        loadData({characters: response["items"]})
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/planets.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, planets: response["items"] }));
+        loadData({planets: response["items"]})
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/species.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, species: response["items"] }));
+        loadData({species: response["items"]})
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/starships.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, spaceships: response["items"] }));
+        loadData({spaceships: response["items"]})
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/vehicles.json`)
       .then((response) => response.json())
       .then((response) => {
-        setData((data) => ({ ...data, vehicles: response["items"] }));
+        loadData({vehicles: response["items"]})
       });
   };
 
   useEffect(() => {
-    loadData();
+    loadAllData();
   }, []);
 
   useEffect(() => {
@@ -76,13 +67,12 @@ const App = ({ selectedCard, setCard }) => {
         variant="contained"
         color="primary"
         disabled={!allLoaded}
-        // onClick={() => setCharacterId(Math.floor(Math.random() * 82))}
-        onClick={() => setCard("asdf", 5)}
+        onClick={() => setCard("character", Math.floor(Math.random() * 82))}
       >
         Random character
       </Button>
 
-      <Character selected={characterId} data={data} />
+      <CardSelector />
 
     </div>
   );
@@ -92,11 +82,13 @@ const App = ({ selectedCard, setCard }) => {
 App.propTypes = {
   selectedCard: PropTypes.object.isRequired,
   setCard: PropTypes.func.isRequired,
+  loadData: PropTypes.func.isRequired,
 };
 
 // mapStateToProps:
 const mapStateToProps = (state) => ({
   selectedCard: state.card.selectedCard,
+  data: state.data.data,
 });
 
-export default connect(mapStateToProps, { setCard })(App);
+export default connect(mapStateToProps, { setCard, loadData })(App);

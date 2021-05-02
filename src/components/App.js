@@ -4,14 +4,6 @@ import "./App.css";
 import Character from "./cards/Character";
 
 const App = () => {
-  // var data = {
-  //   movies: [],
-  //   characters: [],
-  //   planets: [],
-  //   species: [],
-  //   spaceships: [],
-  //   vehicles: [],
-  // };
   const [data, setData] = useState({
     movies: [],
     characters: [],
@@ -21,6 +13,7 @@ const App = () => {
     vehicles: [],
   });
   const [allLoaded, setAllLoaded] = useState(false);
+  const [cardType, setCardType] = useState(<div/>)
   const [characterId, setCharacterId] = useState(0);
 
   const loadData = () => {
@@ -85,30 +78,7 @@ const App = () => {
       </Button>
 
       <Character selected={characterId} data={data} />
-      {/* {data.movies.map((vehicle, id) => (
-        <b id={id}>{vehicle.title}, </b>
-      ))}
-      <hr />
-      {data.characters.map((vehicle, id) => (
-        <b id={id}>{vehicle.name}, </b>
-      ))}
-      <hr />
-      {data.planets.map((vehicle, id) => (
-        <b id={id}>{vehicle.name}, </b>
-      ))}
-      <hr />
-      {data.species.map((vehicle, id) => (
-        <b id={id}>{vehicle.name}, </b>
-      ))}
-      <hr />
-      {data.spaceships.map((vehicle, id) => (
-        <b id={id}>{vehicle.name}, </b>
-      ))}
-      <hr />
-      {data.vehicles.map((vehicle, id) => (
-        <b id={id}>{vehicle.name}, </b>
-      ))}
-      <hr /> */}
+
     </div>
   );
 };

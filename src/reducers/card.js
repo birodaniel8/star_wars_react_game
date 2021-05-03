@@ -4,7 +4,8 @@ import { SET_CARD } from "../actions/types.js";
 const initialState = {
   selectedCard: {
     type: null,
-    id: null,
+    name: null,
+    propertyCard: false,
   },
 };
 

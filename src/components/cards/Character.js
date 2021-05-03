@@ -1,48 +1,50 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { getPlanet, getSpecies, getMovie } from "./GetFunctions"
-import { Button } from "@material-ui/core";
+import { Paper, Grid } from "@material-ui/core";
 
-import { setCard } from "../../actions/card";
+import CardItem from "./CardItem";
 
-const Character = ({ selected, data, setCard }) => {
-  const c = data.characters[selected];
-  console.log(c);
+const Character = ({ name, data }) => {
+  const character = data.characters.filter((character) => character.name === name)[0];
 
-
-  if (Object.entries(data)
-  .map((entry) => entry[1].length)
-  .every((item) => item > 0)) {
-    return (
-      <div>
-        <h1>{c.name}</h1>
-        <p>
-          <b>Homeworld:</b> <Button variant="contained" onClick={() => setCard("planet", 1)}>{getPlanet(c.homeworld, data)}</Button>
-        </p>
-        <p>
-          <b>Species:</b> <Button variant="contained">{getSpecies(c.species[0], data)}</Button>
-        </p>
-        <p>
-          <b>Movies:</b> {c.films.map(movie => <Button variant="contained">{getMovie(movie, data)}</Button>)}
-        </p>
-        <p>
-          <b>Gender:</b> {c.gender}
-        </p>
-        <p>
-          <b>Skin color:</b> {c.skin_color}
-        </p>
-      </div>
-    );
-  } else {
-    return <div></div>;
-  }
+  return (
+    <Paper>
+      <h1>{character.name}</h1>
+      <Grid container spacing={1}>
+        <CardItem item={character} property="homeworld" itemList={data.planets} setCardType="planet" />
+        <CardItem item={character} property="species" itemList={data.species} setCardType="species" />
+        <CardItem
+          item={character}
+          property="films"
+          propertyName="movies"
+          itemList={data.movies}
+          setCardType="movie"
+          fieldName="title"
+        />
+        <CardItem item={character} property="gender" />
+        <CardItem item={character} property="skin_color" />
+        <CardItem item={character} property="birth_year" />
+        <CardItem item={character} property="eye_color" />
+        <CardItem item={character} property="hair_color" />
+        <CardItem item={character} property="height" />
+        <CardItem item={character} property="mass" />
+        <CardItem
+          item={character}
+          property="starships"
+          propertyName="Spaceships"
+          itemList={data.spaceships}
+          setCardType="spaceship"
+        />
+        <CardItem item={character} property="vehicles" itemList={data.vehicles} setCardType="vehicle" />
+      </Grid>
+    </Paper>
+  );
 };
 
 // PropTypes:
 Character.propTypes = {
-  selected: PropTypes.number.isRequired,
-  setCard: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 // mapStateToProps:
@@ -50,4 +52,4 @@ const mapStateToProps = (state) => ({
   data: state.data.data,
 });
 
-export default connect(mapStateToProps, {setCard})(Character);
+export default connect(mapStateToProps, {})(Character);

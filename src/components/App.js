@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { LinearProgress, Button } from "@material-ui/core";
+import { LinearProgress, Button, Container, Grid } from "@material-ui/core";
 import "./App.css";
-import CardSelector from "./CardSelector"
+import CardSelector from "./CardSelector";
 
 import { setCard } from "../actions/card";
 import { loadData } from "../actions/data";
@@ -15,32 +15,32 @@ const App = ({ data, selectedCard, setCard, loadData }) => {
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/films.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({movies: response["items"]})
+        loadData({ movies: response["items"] });
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/people.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({characters: response["items"]})
+        loadData({ characters: response["items"] });
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/planets.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({planets: response["items"]})
+        loadData({ planets: response["items"] });
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/species.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({species: response["items"]})
+        loadData({ species: response["items"] });
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/starships.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({spaceships: response["items"]})
+        loadData({ spaceships: response["items"] });
       });
     fetch(`${process.env.PUBLIC_URL}/sw_api_data/vehicles.json`)
       .then((response) => response.json())
       .then((response) => {
-        loadData({vehicles: response["items"]})
+        loadData({ vehicles: response["items"] });
       });
   };
 
@@ -58,22 +58,20 @@ const App = ({ data, selectedCard, setCard, loadData }) => {
 
   return (
     <div className="App">
-      <LinearProgress
-        variant="determinate"
-        value={allLoaded === true ? 100 : 0}
-      />
+      <LinearProgress variant="determinate" value={allLoaded === true ? 100 : 0} />
 
       <Button
         variant="contained"
         color="primary"
         disabled={!allLoaded}
-        onClick={() => setCard("character", Math.floor(Math.random() * 82))}
+        onClick={() => setCard("character", data.characters[Math.floor(Math.random() * 82)].name)}
       >
         Random character
       </Button>
 
-      <CardSelector />
-
+      <Container maxWidth="xs" style={{ border: "1px solid black" }}>
+        <CardSelector />
+      </Container>
     </div>
   );
 };

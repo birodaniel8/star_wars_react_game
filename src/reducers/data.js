@@ -17,7 +17,7 @@ export default function (state = initialState, action) {
     case LOAD_DATA:
       return {
         ...state,
-        data: {...state.data, ...action.payload},
+        data: { ...state.data, ...action.payload },
       };
     default:
       return state;

@@ -7,33 +7,36 @@ import Movie from "./cards/Movie";
 import Species from "./cards/Species";
 import Spaceship from "./cards/Spaceship";
 import Vehicle from "./cards/Vehicle";
+import PropertyCard from "./cards/PropertyCard";
 
-const CardSelector = ({ selectedCard, data }) => {
-  if (!selectedCard.propertyCard) {
-    switch (selectedCard.type) {
-      case "character":
-        return <Character name={selectedCard.name} />;
-      case "planet":
-        return <Planet name={selectedCard.name} />;
-      case "movie":
-        return <Movie name={selectedCard.name} />;
-      case "species":
-        return <Species name={selectedCard.name} />;
-      case "spaceship":
-        return <Spaceship name={selectedCard.name} />;
-      case "vehicle":
-        return <Vehicle name={selectedCard.name} />;
-      default:
-        return <div>Nothing has been selected</div>;
-    }
-  } else {
-    return <div>This is a property card</div>;
+import { setSpecialCard } from "../actions/card";
+
+const CardSelector = ({ selectedCard, data, setSpecialCard }) => {
+  selectedCard.type !== "property" && setSpecialCard(selectedCard.type);
+  switch (selectedCard.type) {
+    case "character":
+      return <Character name={selectedCard.name} />;
+    case "planet":
+      return <Planet name={selectedCard.name} />;
+    case "movie":
+      return <Movie name={selectedCard.name} />;
+    case "species":
+      return <Species name={selectedCard.name} />;
+    case "spaceship":
+      return <Spaceship name={selectedCard.name} />;
+    case "vehicle":
+      return <Vehicle name={selectedCard.name} />;
+    case "property":
+      return <PropertyCard name={selectedCard.name} propertyInfo={selectedCard.propertyInfo} />;
+    default:
+      return <div>Nothing has been selected</div>;
   }
 };
 
 // PropTypes:
 CardSelector.propTypes = {
   selectedCard: PropTypes.object.isRequired,
+  setSpecialCard: PropTypes.func.isRequired,
 };
 
 // mapStateToProps:
@@ -42,4 +45,4 @@ const mapStateToProps = (state) => ({
   data: state.data.data,
 });
 
-export default connect(mapStateToProps, {})(CardSelector);
+export default connect(mapStateToProps, { setSpecialCard })(CardSelector);

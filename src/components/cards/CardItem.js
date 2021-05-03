@@ -16,7 +16,7 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
   propertyName = propertyName.replace(/_/g, " ");
 
   const renderButton = () => {
-    if (item[property] !== "unknown" && item[property] !== "n/a") {
+    if (item[property] && item[property] !== "unknown" && item[property] !== "n/a") {
       if (itemList) {
         if (Array.isArray(item[property])) {
           // if the property is an empty array for species property then set it to Human:
@@ -48,11 +48,25 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
       // if the property is a string with a list of comma separated characteristics:
       const splittetProperty = item[property].split(", ");
       if (splittetProperty.length > 1) {
-        return splittetProperty.map((sp) => <Button variant="contained">{sp}</Button>);
+        return splittetProperty.map((sp) => (
+          <Button
+            variant="contained"
+            onClick={() => setCard(setCardType, sp, { property: property, fieldName: fieldName })}
+          >
+            {sp}
+          </Button>
+        ));
       }
 
       // if the property is a single value:
-      return <Button variant="contained">{item[property]}</Button>;
+      return (
+        <Button
+          variant="contained"
+          onClick={() => setCard(setCardType, item[property], { property: property, fieldName: fieldName })}
+        >
+          {item[property]}
+        </Button>
+      );
     }
     return <div></div>;
   };
@@ -83,7 +97,7 @@ CardItem.defaultProps = {
   propertyName: null,
   itemList: null,
   fieldName: "name",
-  setCardType: null,
+  setCardType: "property",
 };
 
 // mapStateToProps:

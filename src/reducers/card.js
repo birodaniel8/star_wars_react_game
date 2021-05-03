@@ -1,12 +1,13 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { SET_CARD } from "../actions/types.js";
+import { SET_CARD, SET_SPECIAL_CARD } from "../actions/types.js";
 
 const initialState = {
   selectedCard: {
     type: null,
     name: null,
-    propertyCard: false,
+    propertyInfo: {},
   },
+  selectedSpecialCard: null,
 };
 
 export default function (state = initialState, action) {
@@ -15,6 +16,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         selectedCard: action.payload,
+      };
+    case SET_SPECIAL_CARD:
+      return {
+        ...state,
+        selectedSpecialCard: action.payload,
       };
     default:
       return state;

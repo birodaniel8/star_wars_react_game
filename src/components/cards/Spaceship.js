@@ -7,7 +7,6 @@ import CardItem from "./CardItem";
 
 const Spaceship = ({ name, data }) => {
   const spaceship = data.spaceships.filter((spaceship) => spaceship.name === name)[0];
-  console.log(spaceship)
 
   return (
     <Paper>

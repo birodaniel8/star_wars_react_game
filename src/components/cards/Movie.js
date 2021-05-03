@@ -12,9 +12,9 @@ const Movie = ({ name, data }) => {
     <Paper>
       <h1>{movie.title}</h1>
       <Grid container spacing={1}>
-        <CardItem item={movie} property="director" />
-        <CardItem item={movie} property="producer" />
-        <CardItem item={movie} property="release_date" />
+        <CardItem item={movie} property="director" fieldName="title"/>
+        <CardItem item={movie} property="producer" fieldName="title"/>
+        <CardItem item={movie} property="release_date" fieldName="title"/>
         <CardItem item={movie} property="characters" itemList={data.characters} setCardType="character" />
         <CardItem item={movie} property="planets" itemList={data.planets} setCardType="planet" />
         <CardItem item={movie} property="species" itemList={data.species} setCardType="species" />

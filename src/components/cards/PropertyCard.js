@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Paper, Grid, Button } from "@material-ui/core";
 
+import sampleWithoutReplacement from "../SampleWithoutReplacement";
+
 import CardItem from "./CardItem";
 
 import { setCard } from "../../actions/card";
@@ -15,6 +17,8 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
 
   const filteredList = data[pluralizedSelectedSpecialCard].filter((prop) => prop[propertyInfo.property].includes(name));
 
+  const sampledList = sampleWithoutReplacement(filteredList, 5)
+
   return (
     <Paper>
       <h1>{name}</h1>
@@ -25,7 +29,7 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
             <b>{pluralizedSelectedSpecialCard.charAt(0).toUpperCase() + pluralizedSelectedSpecialCard.slice(1)}:</b>
           </Grid>
           <Grid item xs={7} align="left">
-            {filteredList.map((element) => {
+            {sampledList.map((element) => {
               return (
                 <Button
                   variant="contained"

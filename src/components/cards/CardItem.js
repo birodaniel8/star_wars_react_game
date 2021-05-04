@@ -5,6 +5,8 @@ import { Button, Grid } from "@material-ui/core";
 
 import { setCard } from "../../actions/card";
 
+import sampleWithoutReplacement from "../SampleWithoutReplacement";
+
 const getByURL = (itemList, url, fieldName = "name") => {
   return itemList.filter((item) => item.url === url)[0][fieldName];
 };
@@ -28,7 +30,8 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
             );
           }
           // if the property is an array of urls (eg. list of movie urls):
-          return item[property].map((i) => {
+          const sampledItems = sampleWithoutReplacement(item[property], 5)
+          return sampledItems.map((i) => {
             const name = getByURL(itemList, i, fieldName);
             return (
               <Button variant="contained" onClick={() => setCard(setCardType, name)}>

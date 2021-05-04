@@ -1,14 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { LinearProgress, Button, Container, Grid } from "@material-ui/core";
+import { LinearProgress, Button, Container, Grid, Typography } from "@material-ui/core";
 import "./App.css";
 import CardSelector from "./CardSelector";
+import sampleWithoutReplacement from "./SampleWithoutReplacement";
 
 import { setCard } from "../actions/card";
 import { loadData } from "../actions/data";
+import { setGameSettings, addToCounter, resetCounter } from "../actions/game";
 
-const App = ({ data, selectedCard, setCard, loadData }) => {
+const App = ({
+  data,
+  selectedCard,
+  setCard,
+  loadData,
+  settings,
+  counter,
+  setGameSettings,
+  addToCounter,
+  resetCounter,
+}) => {
   const [allLoaded, setAllLoaded] = useState(false);
 
   const loadAllData = () => {
@@ -56,22 +68,54 @@ const App = ({ data, selectedCard, setCard, loadData }) => {
     );
   }, [data]);
 
+  useEffect(() => {
+    addToCounter(counter);
+  }, [selectedCard]);
+
   return (
     <div className="App">
       <LinearProgress variant="determinate" value={allLoaded === true ? 100 : 0} />
 
       <Button
         variant="contained"
-        color="primary"
+        color="secondary"
         disabled={!allLoaded}
-        onClick={() => setCard("character", data.characters[Math.floor(Math.random() * 82)].name)}
+        onClick={() => {
+          const sampledCharacters = sampleWithoutReplacement(data.characters, 2);
+          setGameSettings({ ...settings, target: sampledCharacters[1].name });
+          setCard("character", sampledCharacters[0].name);
+          resetCounter();
+        }}
       >
-        Random character
+        Start Game
       </Button>
 
-      <Container maxWidth="xs" style={{ border: "1px solid black" }}>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={!allLoaded}
+        onClick={() => {
+          setCard("character", sampleWithoutReplacement(data.characters, 1)[0].name);
+          resetCounter();
+        }}
+      >
+        Explore
+      </Button>
+
+      <Button disabled>{counter}</Button>
+
+      <Typography>Target character: {settings.target}</Typography>
+
+      <Container maxWidth="xs" >
         <CardSelector />
+        {settings.target === selectedCard.name && (
+        <Typography style={{ margin: "20px 0px", fontWeight: "bold" }}>
+          Congratulations! You have got to {settings.target} in {counter} steps.
+        </Typography>
+      )}
       </Container>
+
+
     </div>
   );
 };
@@ -81,12 +125,19 @@ App.propTypes = {
   selectedCard: PropTypes.object.isRequired,
   setCard: PropTypes.func.isRequired,
   loadData: PropTypes.func.isRequired,
+  setGameSettings: PropTypes.func.isRequired,
+  addToCounter: PropTypes.func.isRequired,
+  resetCounter: PropTypes.func.isRequired,
+  counter: PropTypes.number.isRequired,
+  settings: PropTypes.object.isRequired,
 };
 
 // mapStateToProps:
 const mapStateToProps = (state) => ({
   selectedCard: state.card.selectedCard,
   data: state.data.data,
+  counter: state.game.counter,
+  settings: state.game.settings,
 });
 
-export default connect(mapStateToProps, { setCard, loadData })(App);
+export default connect(mapStateToProps, { setCard, loadData, setGameSettings, addToCounter, resetCounter })(App);

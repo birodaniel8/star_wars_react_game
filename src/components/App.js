@@ -5,22 +5,11 @@ import { LinearProgress, Button, Container, Typography } from "@material-ui/core
 import "./App.css";
 
 import CardSelector from "./CardSelector";
-import sampleWithoutReplacement from "./SampleWithoutReplacement";
-import { setCard } from "../actions/card";
 import { loadData } from "../actions/data";
-import { setGameSettings, addToCounter, resetCounter } from "../actions/game";
+import { setCard } from "../actions/card";
+import { addToCounter } from "../actions/game";
 
-const App = ({
-  data,
-  selectedCard,
-  setCard,
-  loadData,
-  settings,
-  counter,
-  setGameSettings,
-  addToCounter,
-  resetCounter,
-}) => {
+const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCounter }) => {
   const [allLoaded, setAllLoaded] = useState(false);
 
   const loadAllData = () => {
@@ -56,10 +45,15 @@ const App = ({
       });
   };
 
+  useEffect(() => loadAllData(), []);
+  useEffect(() => allLoaded && setCard("Home"), [allLoaded]);
   useEffect(() => {
-    loadAllData();
-  }, []);
-
+    if (settings.target === selectedCard.name && settings.on === true) {
+      setCard("Final");
+    } else {
+      addToCounter(counter);
+    }
+  }, [selectedCard]);
   useEffect(() => {
     setAllLoaded(
       Object.entries(data)
@@ -68,54 +62,17 @@ const App = ({
     );
   }, [data]);
 
-  useEffect(() => {
-    addToCounter(counter);
-  }, [selectedCard]);
-
   return (
     <div className="App">
       <LinearProgress variant="determinate" value={allLoaded === true ? 100 : 0} />
-
-      <Button
-        variant="contained"
-        color="secondary"
-        disabled={!allLoaded}
-        onClick={() => {
-          const sampledCharacters = sampleWithoutReplacement(data.characters, 2);
-          setGameSettings({ ...settings, target: sampledCharacters[1].name });
-          setCard("character", sampledCharacters[0].name);
-          resetCounter();
-        }}
-      >
-        Start Game
-      </Button>
-
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={!allLoaded}
-        onClick={() => {
-          setCard("character", sampleWithoutReplacement(data.characters, 1)[0].name);
-          resetCounter();
-        }}
-      >
-        Explore
-      </Button>
 
       <Button disabled>{counter}</Button>
 
       <Typography>Target character: {settings.target}</Typography>
 
-      <Container maxWidth="xs" >
+      <Container maxWidth="xs">
         <CardSelector />
-        {settings.target === selectedCard.name && (
-        <Typography style={{ margin: "20px 0px", fontWeight: "bold" }}>
-          Congratulations! You have got to {settings.target} in {counter} steps.
-        </Typography>
-      )}
       </Container>
-
-
     </div>
   );
 };
@@ -125,9 +82,7 @@ App.propTypes = {
   selectedCard: PropTypes.object.isRequired,
   setCard: PropTypes.func.isRequired,
   loadData: PropTypes.func.isRequired,
-  setGameSettings: PropTypes.func.isRequired,
   addToCounter: PropTypes.func.isRequired,
-  resetCounter: PropTypes.func.isRequired,
   counter: PropTypes.number.isRequired,
   settings: PropTypes.object.isRequired,
 };
@@ -140,4 +95,4 @@ const mapStateToProps = (state) => ({
   settings: state.game.settings,
 });
 
-export default connect(mapStateToProps, { setCard, loadData, setGameSettings, addToCounter, resetCounter })(App);
+export default connect(mapStateToProps, { setCard, loadData, addToCounter })(App);

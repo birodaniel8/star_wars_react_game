@@ -8,12 +8,18 @@ import Species from "./cards/Species";
 import Spaceship from "./cards/Spaceship";
 import Vehicle from "./cards/Vehicle";
 import PropertyCard from "./cards/PropertyCard";
+import Home from "./cards/Home";
+import Final from "./cards/Final";
 
 import { setSpecialCard } from "../actions/card";
 
 const CardSelector = ({ selectedCard, setSpecialCard }) => {
   selectedCard.type !== "property" && setSpecialCard(selectedCard.type);
   switch (selectedCard.type) {
+    case "Home":
+      return <Home/ >
+    case "Final":
+      return <Final/ >
     case "character":
       return <Character name={selectedCard.name} />;
     case "planet":

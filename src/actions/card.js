@@ -1,7 +1,7 @@
 import { SET_CARD, SET_SPECIAL_CARD } from "../actions/types.js";
 
 // Set card:
-export const setCard = (cardType, name, propertyInfo = {}) => (dispatch) => {
+export const setCard = (cardType = null, name = null, propertyInfo = {}) => (dispatch) => {
   dispatch({
     type: SET_CARD,
     payload: {

@@ -4,9 +4,6 @@ import { PropTypes } from "prop-types";
 import { Paper, Grid, Button } from "@material-ui/core";
 
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
-
-import CardItem from "./CardItem";
-
 import { setCard } from "../../actions/card";
 
 const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }) => {
@@ -15,12 +12,31 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
       ? selectedSpecialCard
       : selectedSpecialCard + "s";
 
-  const filteredList = data[pluralizedSelectedSpecialCard].filter(
-    (prop) =>
-      prop[propertyInfo.property] === name ||
-      prop[propertyInfo.property].includes(name + ",") ||
-      prop[propertyInfo.property].includes(", " + name)
-  );
+  var filteredList;
+  if (isNaN(name)) {
+    // if it is a birth year:
+    if (name.slice(-3) === "BBY" && !isNaN(name.slice(0, -3))) {
+      console.log(name.slice(0, -3));
+      filteredList = data[pluralizedSelectedSpecialCard].filter(
+        (prop) =>
+          prop[propertyInfo.property].slice(0, -3) >= name.slice(0, -3) * 0.9 &&
+          prop[propertyInfo.property].slice(0, -3) <= name.slice(0, -3) * 1.1
+      );
+    } else {
+      // if it is a normal string:
+      filteredList = data[pluralizedSelectedSpecialCard].filter(
+        (prop) =>
+          prop[propertyInfo.property] === name ||
+          prop[propertyInfo.property].includes(name + ",") ||
+          prop[propertyInfo.property].includes(", " + name)
+      );
+    }
+  } else {
+    // if it is a number:
+    filteredList = data[pluralizedSelectedSpecialCard].filter(
+      (prop) => prop[propertyInfo.property] >= name * 0.9 && prop[propertyInfo.property] <= name * 1.1
+    );
+  }
 
   const sampledList = sampleWithoutReplacement(filteredList, 5);
 

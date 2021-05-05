@@ -17,7 +17,7 @@ const Character = ({ name, data }) => {
         <CardItem
           item={character}
           property="films"
-          propertyName="movies"
+          propertyName="Movies"
           propertyItemList={data.movies}
           setCardType="movie"
           fieldName="title"

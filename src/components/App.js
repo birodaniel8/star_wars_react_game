@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { LinearProgress, Button, Container, Grid, Typography } from "@material-ui/core";
+import { LinearProgress, Button, Container, Typography } from "@material-ui/core";
 import "./App.css";
+
 import CardSelector from "./CardSelector";
 import sampleWithoutReplacement from "./SampleWithoutReplacement";
-
 import { setCard } from "../actions/card";
 import { loadData } from "../actions/data";
 import { setGameSettings, addToCounter, resetCounter } from "../actions/game";

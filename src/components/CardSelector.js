@@ -11,7 +11,7 @@ import PropertyCard from "./cards/PropertyCard";
 
 import { setSpecialCard } from "../actions/card";
 
-const CardSelector = ({ selectedCard, data, setSpecialCard }) => {
+const CardSelector = ({ selectedCard, setSpecialCard }) => {
   selectedCard.type !== "property" && setSpecialCard(selectedCard.type);
   switch (selectedCard.type) {
     case "character":
@@ -29,7 +29,7 @@ const CardSelector = ({ selectedCard, data, setSpecialCard }) => {
     case "property":
       return <PropertyCard name={selectedCard.name} propertyInfo={selectedCard.propertyInfo} />;
     default:
-      return <div>Nothing has been selected</div>;
+      return <div></div>;
   }
 };
 
@@ -42,7 +42,6 @@ CardSelector.propTypes = {
 // mapStateToProps:
 const mapStateToProps = (state) => ({
   selectedCard: state.card.selectedCard,
-  data: state.data.data,
 });
 
 export default connect(mapStateToProps, { setSpecialCard })(CardSelector);

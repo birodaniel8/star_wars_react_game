@@ -19,72 +19,65 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
   propertyName = propertyName.replace(/_/g, " ");
 
   const renderButton = () => {
-    if (item[property] && item[property] !== "unknown" && item[property] !== "n/a") {
-      if (propertyItemList) {
-        if (Array.isArray(item[property])) {
-          // if the property is an empty array for species property then set it to Human:
-          if (property === "species" && item[property].length === 0) {
-            return (
-              <Button variant="contained" onClick={() => setCard(setCardType, "Human")}>
-                Human
-              </Button>
-            );
-          }
-          // if the property is an array of urls (eg. list of movie urls):
-          const sampledItems = sampleWithoutReplacement(item[property], 5);
-          return sampledItems.map((i) => {
-            const name = getByURL(propertyItemList, i, fieldName);
-            return (
-              <Button variant="contained" onClick={() => setCard(setCardType, name)}>
-                {name}
-              </Button>
-            );
-          });
-        }
-        // if the property is a single url:
-        const name = getByURL(propertyItemList, item[property], fieldName);
-        return (
-          <Button variant="contained" onClick={() => setCard(setCardType, name)}>
-            {name}
-          </Button>
-        );
+    if (propertyItemList) {
+      if (Array.isArray(item[property])) {
+        // if the property is an array of urls (eg. list of movie urls):
+        const sampledItems = sampleWithoutReplacement(item[property], 5);
+        return sampledItems.map((i) => {
+          const name = getByURL(propertyItemList, i, fieldName);
+          return (
+            <Button variant="contained" onClick={() => setCard(setCardType, name)}>
+              {name}
+            </Button>
+          );
+        });
       }
-      // if the property is a string with a list of comma separated characteristics:
-      const splittetProperty = item[property].split(", ");
-      if (splittetProperty.length > 1) {
-        return splittetProperty.map((sp) => (
-          <Button
-            variant="contained"
-            onClick={() => setCard(setCardType, sp, { property: property, fieldName: fieldName })}
-          >
-            {sp}
-          </Button>
-        ));
-      }
-
-      // if the property is a single value:
+      // if the property is a single url:
+      const name = getByURL(propertyItemList, item[property], fieldName);
       return (
-        <Button
-          variant="contained"
-          onClick={() => setCard(setCardType, item[property], { property: property, fieldName: fieldName })}
-        >
-          {item[property]}
+        <Button variant="contained" onClick={() => setCard(setCardType, name)}>
+          {name}
         </Button>
       );
     }
-    return <div></div>;
+    // if the property is a string with a list of comma separated characteristics:
+    const splittetProperty = item[property].split(", ");
+    if (splittetProperty.length > 1) {
+      return splittetProperty.map((sp) => (
+        <Button
+          variant="contained"
+          onClick={() => setCard(setCardType, sp, { property: property, fieldName: fieldName })}
+        >
+          {sp}
+        </Button>
+      ));
+    }
+
+    // if the property is a single value:
+    return (
+      <Button
+        variant="contained"
+        onClick={() => setCard(setCardType, item[property], { property: property, fieldName: fieldName })}
+      >
+        {item[property]}
+      </Button>
+    );
   };
 
-  return (
-    <Grid container spacing={1}>
-      <Grid item xs={5} align="right">
-        <b>{propertyName}:</b>
+  // rendering the item if the item[property] is available:
+  if (item[property] && item[property] !== "unknown" && item[property] !== "n/a" && item[property].length > 0) {
+    return (
+      <Grid container spacing={1}>
+        <Grid item xs={5} align="right">
+          <b>{propertyName}:</b>
+        </Grid>
+        <Grid item xs={7} align="left">
+          {renderButton()}
+        </Grid>
       </Grid>
-      <Grid item xs={7} align="left">
-        {renderButton()}
-      </Grid>
-    </Grid>
-  );
+    );
+  }
+  return <div></div>;
 };
 
 // PropTypes:

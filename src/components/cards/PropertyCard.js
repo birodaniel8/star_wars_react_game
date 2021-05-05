@@ -15,9 +15,14 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
       ? selectedSpecialCard
       : selectedSpecialCard + "s";
 
-  const filteredList = data[pluralizedSelectedSpecialCard].filter((prop) => prop[propertyInfo.property].includes(name));
+  const filteredList = data[pluralizedSelectedSpecialCard].filter(
+    (prop) =>
+      prop[propertyInfo.property] === name ||
+      prop[propertyInfo.property].includes(name + ",") ||
+      prop[propertyInfo.property].includes(", " + name)
+  );
 
-  const sampledList = sampleWithoutReplacement(filteredList, 5)
+  const sampledList = sampleWithoutReplacement(filteredList, 5);
 
   return (
     <Paper>

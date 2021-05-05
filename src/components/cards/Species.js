@@ -13,7 +13,7 @@ const Species = ({ name, data }) => {
     <Paper>
       <h1>{species.name}</h1>
       <Grid container spacing={1}>
-        <CardItem item={species} property="homeworld" itemList={data.planets} setCardType="planet" />
+        <CardItem item={species} property="homeworld" propertyItemList={data.planets} setCardType="planet" />
         <CardItem item={species} property="classification" />
         <CardItem item={species} property="designation" />
         <CardItem item={species} property="language" />
@@ -26,11 +26,11 @@ const Species = ({ name, data }) => {
           item={species}
           property="films"
           propertyName="Movies"
-          itemList={data.movies}
+          propertyItemList={data.movies}
           fieldName="title"
           setCardType="movie"
         />
-        <CardItem item={species} property="people" itemList={data.characters} setCardType="character" />
+        <CardItem item={species} property="people" propertyItemList={data.characters} setCardType="character" />
       </Grid>
     </Paper>
   );

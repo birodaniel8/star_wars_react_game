@@ -15,17 +15,17 @@ const Movie = ({ name, data }) => {
         <CardItem item={movie} property="director" fieldName="title"/>
         <CardItem item={movie} property="producer" fieldName="title"/>
         <CardItem item={movie} property="release_date" fieldName="title"/>
-        <CardItem item={movie} property="characters" itemList={data.characters} setCardType="character" />
-        <CardItem item={movie} property="planets" itemList={data.planets} setCardType="planet" />
-        <CardItem item={movie} property="species" itemList={data.species} setCardType="species" />
+        <CardItem item={movie} property="characters" propertyItemList={data.characters} setCardType="character" />
+        <CardItem item={movie} property="planets" propertyItemList={data.planets} setCardType="planet" />
+        <CardItem item={movie} property="species" propertyItemList={data.species} setCardType="species" />
         <CardItem
           item={movie}
           property="starships"
           propertyName="Spaceships"
-          itemList={data.spaceships}
+          propertyItemList={data.spaceships}
           setCardType="spaceship"
         />
-        <CardItem item={movie} property="vehicles" itemList={data.vehicles} setCardType="vehicle" />
+        <CardItem item={movie} property="vehicles" propertyItemList={data.vehicles} setCardType="vehicle" />
       </Grid>
     </Paper>
   );

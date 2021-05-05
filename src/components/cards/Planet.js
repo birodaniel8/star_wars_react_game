@@ -23,11 +23,11 @@ const Planet = ({ name, data }) => {
           item={planet}
           property="films"
           propertyName="Movies"
-          itemList={data.movies}
+          propertyItemList={data.movies}
           fieldName="title"
           setCardType="movie"
         />
-        <CardItem item={planet} property="residents" itemList={data.characters} setCardType="character" />
+        <CardItem item={planet} property="residents" propertyItemList={data.characters} setCardType="character" />
       </Grid>
     </Paper>
   );

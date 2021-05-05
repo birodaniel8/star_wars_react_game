@@ -4,14 +4,15 @@ import { PropTypes } from "prop-types";
 import { Button, Grid } from "@material-ui/core";
 
 import { setCard } from "../../actions/card";
-
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 
-const getByURL = (itemList, url, fieldName = "name") => {
-  return itemList.filter((item) => item.url === url)[0][fieldName];
+const getByURL = (propertyItemList, url, fieldName = "name") => {
+  // returns the item's fieldName value given by the url
+  return propertyItemList.filter((item) => item.url === url)[0][fieldName];
 };
 
-const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, setCardType }) => {
+const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, setCard, setCardType }) => {
+  // propertyName formatting:
   if (!propertyName) {
     propertyName = property.charAt(0).toUpperCase() + property.slice(1);
   }
@@ -19,7 +20,7 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
 
   const renderButton = () => {
     if (item[property] && item[property] !== "unknown" && item[property] !== "n/a") {
-      if (itemList) {
+      if (propertyItemList) {
         if (Array.isArray(item[property])) {
           // if the property is an empty array for species property then set it to Human:
           if (property === "species" && item[property].length === 0) {
@@ -30,9 +31,9 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
             );
           }
           // if the property is an array of urls (eg. list of movie urls):
-          const sampledItems = sampleWithoutReplacement(item[property], 5)
+          const sampledItems = sampleWithoutReplacement(item[property], 5);
           return sampledItems.map((i) => {
-            const name = getByURL(itemList, i, fieldName);
+            const name = getByURL(propertyItemList, i, fieldName);
             return (
               <Button variant="contained" onClick={() => setCard(setCardType, name)}>
                 {name}
@@ -41,7 +42,7 @@ const CardItem = ({ setCard, item, property, propertyName, itemList, fieldName, 
           });
         }
         // if the property is a single url:
-        const name = getByURL(itemList, item[property], fieldName);
+        const name = getByURL(propertyItemList, item[property], fieldName);
         return (
           <Button variant="contained" onClick={() => setCard(setCardType, name)}>
             {name}
@@ -91,14 +92,15 @@ CardItem.propTypes = {
   item: PropTypes.object.isRequired,
   property: PropTypes.string.isRequired,
   propertyName: PropTypes.string,
-  itemList: PropTypes.array,
+  propertyItemList: PropTypes.array,
   fieldName: PropTypes.string,
+  setCard: PropTypes.func.isRequired,
   setCardType: PropTypes.string,
 };
 
 CardItem.defaultProps = {
   propertyName: null,
-  itemList: null,
+  propertyItemList: null,
   fieldName: "name",
   setCardType: "property",
 };

@@ -12,13 +12,13 @@ const Character = ({ name, data }) => {
     <Paper>
       <h1>{character.name}</h1>
       <Grid container spacing={1}>
-        <CardItem item={character} property="homeworld" itemList={data.planets} setCardType="planet" />
-        <CardItem item={character} property="species" itemList={data.species} setCardType="species" />
+        <CardItem item={character} property="homeworld" propertyItemList={data.planets} setCardType="planet" />
+        <CardItem item={character} property="species" propertyItemList={data.species} setCardType="species" />
         <CardItem
           item={character}
           property="films"
           propertyName="movies"
-          itemList={data.movies}
+          propertyItemList={data.movies}
           setCardType="movie"
           fieldName="title"
         />
@@ -33,10 +33,10 @@ const Character = ({ name, data }) => {
           item={character}
           property="starships"
           propertyName="Spaceships"
-          itemList={data.spaceships}
+          propertyItemList={data.spaceships}
           setCardType="spaceship"
         />
-        <CardItem item={character} property="vehicles" itemList={data.vehicles} setCardType="vehicle" />
+        <CardItem item={character} property="vehicles" propertyItemList={data.vehicles} setCardType="vehicle" />
       </Grid>
     </Paper>
   );

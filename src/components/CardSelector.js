@@ -12,9 +12,11 @@ import Home from "./cards/Home";
 import Final from "./cards/Final";
 
 import { setSpecialCard } from "../actions/card";
+import { addToPath } from "../actions/game";
 
-const CardSelector = ({ selectedCard, setSpecialCard }) => {
+const CardSelector = ({ selectedCard, setSpecialCard, addToPath }) => {
   selectedCard.type !== "property" && setSpecialCard(selectedCard.type);
+  addToPath(selectedCard.name)
   switch (selectedCard.type) {
     case "Home":
       return <Home/ >
@@ -43,6 +45,7 @@ const CardSelector = ({ selectedCard, setSpecialCard }) => {
 CardSelector.propTypes = {
   selectedCard: PropTypes.object.isRequired,
   setSpecialCard: PropTypes.func.isRequired,
+  addToPath: PropTypes.func.isRequired,
 };
 
 // mapStateToProps:
@@ -50,4 +53,4 @@ const mapStateToProps = (state) => ({
   selectedCard: state.card.selectedCard,
 });
 
-export default connect(mapStateToProps, { setSpecialCard })(CardSelector);
+export default connect(mapStateToProps, { setSpecialCard, addToPath })(CardSelector);

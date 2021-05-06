@@ -7,9 +7,11 @@ import CardItem from "./CardItem";
 
 const Movie = ({ name, data }) => {
   const movie = data.movies.filter((movie) => movie.title === name)[0];
+  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${movie.title.replace("/", "-")}.png`
 
   return (
     <Paper>
+      <img src={img_src} alt="" width="100%"/>
       <h1>{movie.title}</h1>
       <Grid container spacing={1}>
         <CardItem item={movie} property="director" fieldName="title"/>

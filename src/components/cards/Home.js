@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Button, Container, Typography, Paper } from "@material-ui/core";
 
+import StartGameButton from "../StartGameButton"
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 import { setGameSettings, resetCounter } from "../../actions/game";
@@ -10,18 +11,7 @@ import { setGameSettings, resetCounter } from "../../actions/game";
 const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
   return (
     <Paper style = {{height: "200px"}}>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => {
-          const sampledCharacters = sampleWithoutReplacement(data.characters, 2);
-          setGameSettings({ ...settings, target: sampledCharacters[1].name, on: true });
-          setCard("character", sampledCharacters[0].name);
-          resetCounter();
-        }}
-      >
-        Start Game
-      </Button>
+      <StartGameButton buttonText="Start Game"/>
 
       <Button
         variant="contained"
@@ -29,6 +19,7 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
         onClick={() => {
           setCard("character", sampleWithoutReplacement(data.characters, 1)[0].name);
           resetCounter();
+          setGameSettings({ ...settings, explore: true });
         }}
       >
         Explore

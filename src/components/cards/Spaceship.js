@@ -7,9 +7,11 @@ import CardItem from "./CardItem";
 
 const Spaceship = ({ name, data }) => {
   const spaceship = data.spaceships.filter((spaceship) => spaceship.name === name)[0];
+  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${spaceship.name.replace("/", "-")}.png`
 
   return (
     <Paper>
+      <img src={img_src} alt="" width="100%"/>
       <h1>{spaceship.name}</h1>
       <Grid container spacing={1}>
         <CardItem item={spaceship} property="model" />

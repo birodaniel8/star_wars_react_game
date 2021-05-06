@@ -7,9 +7,11 @@ import CardItem from "./CardItem";
 
 const Planet = ({ name, data }) => {
   const planet = data.planets.filter((planet) => planet.name === name)[0];
+  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${planet.name.replace("/", "-")}.png`
 
   return (
     <Paper>
+      <img src={img_src} alt="" width="100%"/>
       <h1>{planet.name}</h1>
       <Grid container spacing={1}>
         <CardItem item={planet} property="climate" />

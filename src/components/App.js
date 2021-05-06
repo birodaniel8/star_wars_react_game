@@ -4,6 +4,7 @@ import { PropTypes } from "prop-types";
 import { LinearProgress, Button, Container, Typography } from "@material-ui/core";
 import "./App.css";
 
+import Header from "./Header";
 import CardSelector from "./CardSelector";
 import { loadData } from "../actions/data";
 import { setCard } from "../actions/card";
@@ -65,12 +66,8 @@ const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCo
   return (
     <div className="App">
       <LinearProgress variant="determinate" value={allLoaded === true ? 100 : 0} />
-
-      <Button disabled>{counter}</Button>
-
-      <Typography>Target character: {settings.target}</Typography>
-
       <Container maxWidth="xs">
+        <Header />
         <CardSelector />
       </Container>
     </div>

@@ -1,18 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { Paper, Grid } from "@material-ui/core";
+import { Paper, Grid, Typography } from "@material-ui/core";
 
+import useStyles from "../../styles";
 import CardItem from "./CardItem";
 
 const Species = ({ name, data }) => {
+  const classes = useStyles();
   const species = data.species.filter((species) => species.name === name)[0];
   const img_src = `${process.env.PUBLIC_URL}/sw_pics/${species.name.replace("/", "-")}.png`
 
   return (
-    <Paper>
+    <Paper className={classes.gameCard}>
       <img src={img_src} alt="" width="100%"/>
-      <h1>{species.name}</h1>
+      <Typography className={classes.gameCardTitle}>
+        {species.name}
+      </Typography>
       <Grid container spacing={1}>
         <CardItem item={species} property="homeworld" propertyItemList={data.planets} setCardType="planet" />
         <CardItem item={species} property="classification" />

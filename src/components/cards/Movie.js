@@ -1,18 +1,22 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { Paper, Grid } from "@material-ui/core";
+import { Paper, Grid, Typography } from "@material-ui/core";
 
+import useStyles from "../../styles";
 import CardItem from "./CardItem";
 
 const Movie = ({ name, data }) => {
+  const classes = useStyles();
   const movie = data.movies.filter((movie) => movie.title === name)[0];
   const img_src = `${process.env.PUBLIC_URL}/sw_pics/${movie.title.replace("/", "-")}.png`
 
   return (
-    <Paper>
+    <Paper className={classes.gameCard}>
       <img src={img_src} alt="" width="100%"/>
-      <h1>{movie.title}</h1>
+      <Typography className={classes.gameCardTitle}>
+        {movie.title}
+      </Typography>
       <Grid container spacing={1}>
         <CardItem item={movie} property="director" fieldName="title"/>
         <CardItem item={movie} property="producer" fieldName="title"/>

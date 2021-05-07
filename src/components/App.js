@@ -65,7 +65,7 @@ const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCo
 
   return (
     <div className="App">
-      <LinearProgress variant="determinate" value={allLoaded === true ? 100 : 0} />
+      <LinearProgress variant="determinate" color="primary" value={allLoaded === true ? 100 : 0} />
       <Container maxWidth="xs">
         <Header />
         <CardSelector />

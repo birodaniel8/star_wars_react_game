@@ -1,12 +1,15 @@
 import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { Paper, Grid, Button } from "@material-ui/core";
+import { Paper, Grid, Button, Typography } from "@material-ui/core";
 
+import useStyles from "../../styles";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 
 const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }) => {
+  const classes = useStyles();
+
   const pluralizedSelectedSpecialCard =
     selectedSpecialCard.charAt(selectedSpecialCard.length - 1) === "s"
       ? selectedSpecialCard
@@ -40,11 +43,15 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
 
   const sampledList = sampleWithoutReplacement(filteredList, 5);
 
+    
+  var propertyName = propertyInfo.property.charAt(0).toUpperCase() + propertyInfo.property.slice(1);
+  propertyName = propertyName.replace(/_/g, " ");
+
   return (
-    <Paper>
-      <h1>{name}</h1>
+    <Paper className={classes.gameCard}>
+      <Typography className={classes.gameCardTitle}>{name}</Typography>
+      <Typography className={classes.propertyCardTitle}>({propertyName})</Typography>
       <Grid container spacing={1}>
-        <h2>{propertyInfo.property}</h2>
         <Grid container spacing={1}>
           <Grid item xs={5} align="right">
             <b>{pluralizedSelectedSpecialCard.charAt(0).toUpperCase() + pluralizedSelectedSpecialCard.slice(1)}:</b>
@@ -53,6 +60,7 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
             {sampledList.map((element) => {
               return (
                 <Button
+                  className={classes.itemBtn}
                   variant="contained"
                   onClick={() => setCard(selectedSpecialCard, element[propertyInfo.fieldName])}
                 >

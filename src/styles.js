@@ -26,6 +26,8 @@ const useStyles = makeStyles({
   },
   header: {
     backgroundColor: "#f3f3f3",
+    boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
+    overflow: "hidden",
   },
   homeCard: {
     backgroundColor: "rgba(255, 255, 255, 0)",

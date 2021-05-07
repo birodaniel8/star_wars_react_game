@@ -5,12 +5,16 @@ import { Button } from "@material-ui/core";
 import sampleWithoutReplacement from "./SampleWithoutReplacement";
 import { setCard } from "../actions/card";
 import { setGameSettings, resetCounter } from "../actions/game";
+import useStyles from "../styles";
 
-const StartGameButton = ({ buttonText, setGameSettings, setCard, resetCounter, settings, data }) => {
+const StartGameButton = ({ buttonText, setGameSettings, setCard, resetCounter, settings, data, buttonStyleClass }) => {
+  const classes = useStyles();
+
   return (
     <Button
+      className={classes[buttonStyleClass]}
       variant="contained"
-      color="secondary"
+      color="primary"
       onClick={() => {
         const sampledCharacters = sampleWithoutReplacement(data.characters, 2);
         setGameSettings({ ...settings, target: sampledCharacters[1].name, on: true, explore: false });
@@ -30,6 +34,7 @@ StartGameButton.propTypes = {
   setGameSettings: PropTypes.func.isRequired,
   resetCounter: PropTypes.func.isRequired,
   settings: PropTypes.object.isRequired,
+  buttonStyleClass: PropTypes.string.isRequired,
 };
 
 // mapStateToProps:

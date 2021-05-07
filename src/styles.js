@@ -26,6 +26,22 @@ const useStyles = makeStyles({
   },
   header: {
     backgroundColor: "#f3f3f3",
+  },
+  homeCard: {
+    backgroundColor: "rgba(255, 255, 255, 0)"
+  },
+  mainStartButton: {
+    fontSize: 30,
+    height: "70px",
+    width: "350px",
+    marginTop: "20px",
+  },
+  gameTitle: {
+  },
+  exploreButton: {
+    fontSize: 20  ,
+    height: "40px",
+    width: "350px",
   }
 });
 

@@ -3,19 +3,24 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Button, Container, Typography, Paper } from "@material-ui/core";
 
-import StartGameButton from "../StartGameButton"
+import useStyles from "../../styles";
+import StartGameButton from "../StartGameButton";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 import { setGameSettings, resetCounter } from "../../actions/game";
 
 const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
+  const classes = useStyles();
+  const img_src = `${process.env.PUBLIC_URL}/main.png`
   return (
-    <Paper style = {{height: "200px"}}>
-      <StartGameButton buttonText="Start Game"/>
-
+    <Paper className={classes.homeCard}>
+      <img src={img_src} alt="" width="100%"/>
+      <StartGameButton buttonText="Start Game" buttonStyleClass="mainStartButton" />
+      <div></div>
       <Button
+        className={classes.exploreButton}
         variant="contained"
-        color="primary"
+        color="secondary"
         onClick={() => {
           setCard("character", sampleWithoutReplacement(data.characters, 1)[0].name);
           resetCounter();

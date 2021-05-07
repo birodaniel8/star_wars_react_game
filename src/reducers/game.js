@@ -5,7 +5,6 @@ const initialState = {
   settings: {
     on: false,
     target: null,
-    level: "easy",
     explore: false,
   },
   counter: -1,

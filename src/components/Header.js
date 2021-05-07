@@ -24,7 +24,7 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
             <Typography>Steps:</Typography>
             <Button style={{ width: "100%" }}> {counter} </Button>
           </Grid>
-          <Grid item xs={2} align="center">
+          <Grid item xs={2} align="center" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
             <CancelIcon
               fontSize="large"
               color="error"
@@ -39,7 +39,7 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
     );
   }
   if (settings.explore) {
-    return <StartGameButton buttonText="Start Game Now" />;
+    return <StartGameButton buttonText="Start Game Now" buttonStyleClass="exploreStartButton"/>;
   }
   return <div></div>;
 };

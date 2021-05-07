@@ -15,7 +15,7 @@ const Root = () => {
     },
     palette: {
       primary: {
-        main: "#FFCD00"
+        main: "#FFCD00",
       }
     }
   });

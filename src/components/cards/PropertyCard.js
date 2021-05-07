@@ -7,7 +7,7 @@ import useStyles from "../../styles";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 
-const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }) => {
+const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard, settings }) => {
   const classes = useStyles();
 
   const pluralizedSelectedSpecialCard =
@@ -41,7 +41,12 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard }
     );
   }
 
-  const sampledList = sampleWithoutReplacement(filteredList, 5);
+  var sampledList
+  if (settings.explore) {
+    sampledList = filteredList
+  } else {
+    sampledList = sampleWithoutReplacement(filteredList, 5);
+  }
 
     
   var propertyName = propertyInfo.property.charAt(0).toUpperCase() + propertyInfo.property.slice(1);
@@ -85,6 +90,7 @@ PropertyCard.propTypes = {
 const mapStateToProps = (state) => ({
   data: state.data.data,
   selectedSpecialCard: state.card.selectedSpecialCard,
+  settings: state.game.settings,
 });
 
 export default connect(mapStateToProps, { setCard })(PropertyCard);

@@ -62,9 +62,10 @@ const PropertyCard = ({ data, settings, name, propertyInfo, selectedSpecialCard,
           <b>{pluralizedSelectedSpecialCard.charAt(0).toUpperCase() + pluralizedSelectedSpecialCard.slice(1)}:</b>
         </Grid>
         <Grid item xs={7} align="left">
-          {sampledList.map((element) => {
+          {sampledList.map((element, idx) => {
             return (
               <Button
+                key={`${propertyName}_${idx}`}
                 className={classes.itemButton}
                 variant="contained"
                 onClick={() => setCard(selectedSpecialCard, element[propertyInfo.fieldName])}
@@ -84,7 +85,7 @@ PropertyCard.propTypes = {
   data: PropTypes.object.isRequired,
   settings: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
-  propertyInfo: PropTypes.string.isRequired,
+  propertyInfo: PropTypes.object.isRequired,
   selectedSpecialCard: PropTypes.string.isRequired,
   setCard: PropTypes.func.isRequired,
 };

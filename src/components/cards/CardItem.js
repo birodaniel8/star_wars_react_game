@@ -26,10 +26,15 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
       if (Array.isArray(item[property])) {
         // if the property is an array of urls (eg. list of movie urls):
         const sampledItems = sampleWithoutReplacement(item[property], 5);
-        return sampledItems.map((i) => {
+        return sampledItems.map((i, idx) => {
           const name = getByURL(propertyItemList, i, fieldName);
           return (
-            <Button className={classes.itemButton} variant="contained" onClick={() => setCard(setCardType, name)}>
+            <Button
+              key={`${property}_${idx}`}
+              className={classes.itemButton}
+              variant="contained"
+              onClick={() => setCard(setCardType, name)}
+            >
               {name}
             </Button>
           );
@@ -38,7 +43,12 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
       // if the property is a single url:
       const name = getByURL(propertyItemList, item[property], fieldName);
       return (
-        <Button className={classes.itemButton} variant="contained" onClick={() => setCard(setCardType, name)}>
+        <Button
+          key={property}
+          className={classes.itemButton}
+          variant="contained"
+          onClick={() => setCard(setCardType, name)}
+        >
           {name}
         </Button>
       );
@@ -46,8 +56,9 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
     // if the property is a string with a list of comma separated characteristics:
     const splittetProperty = item[property].split(", ");
     if (splittetProperty.length > 1) {
-      return splittetProperty.map((sp) => (
+      return splittetProperty.map((sp, idx) => (
         <Button
+          key={`${property}_${idx}`}
           className={classes.itemButton}
           variant="contained"
           onClick={() => setCard(setCardType, sp, { property: property, fieldName: fieldName })}
@@ -60,6 +71,7 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
     // if the property is a single value:
     return (
       <Button
+        key={property}
         className={classes.itemButton}
         variant="contained"
         onClick={() => setCard(setCardType, item[property], { property: property, fieldName: fieldName })}

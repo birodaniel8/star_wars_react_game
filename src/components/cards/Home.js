@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { Paper, Button, Typography } from "@material-ui/core";
+import { Paper, Button } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
@@ -34,16 +34,16 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
         Explore
       </Button>
 
-      <Typography className={classes.instructions} onClick={() => setShowInstructions(!showInstructions)}>
+      <div className={classes.instructions} onClick={() => setShowInstructions(!showInstructions)}>
         Instructions
         {showInstructions ? (
           <ExpandLessIcon style={{ marginLeft: "5px" }} />
         ) : (
           <ExpandMoreIcon style={{ marginLeft: "5px" }} />
         )}
-      </Typography>
+      </div>
 
-      <Typography className={classes.instructionText} hidden={!showInstructions}>
+      <div className={classes.instructionText} hidden={!showInstructions}>
         <p>
           The goal of this game is to get to a randomly selected target character from an other randomly selected
           initial character in the least amount of steps.
@@ -64,7 +64,7 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
           In the 'explore' mode you don't play a game, however all items in a category is listed to explore the Star
           Wars galaxy.
         </p>
-      </Typography>
+      </div>
     </Paper>
   );
 };

@@ -13,15 +13,15 @@ const Final = ({ settings, counter, cardPath }) => {
   return (
     <Paper className={classes.gameCard}>
       <Typography style={{ margin: "20px 0px", padding: "10px", fontWeight: "bold" }}>
-        <p>Congratulations!</p> You have got to {settings.target} in {counter} steps.
+        Congratulations! <br/> You have got to {settings.target} in {counter} steps.
       </Typography>
 
-      <img src={img_src} alt="" width="50%" className={classes.finalImage} />
+      <img src={img_src} alt="" width="50%" className={classes.finalImage}/>
 
       <Typography style={{ marginTop: "20px", marginBottom: "10px" }}>Your path:</Typography>
 
-      {cardPath.map((item) => (
-        <p>
+      {cardPath.map((item, idx) => (
+        <p key={`path_${idx}`}>
           <b>{item}</b>
         </p>
       ))}

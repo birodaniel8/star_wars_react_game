@@ -1,15 +1,4 @@
-import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
-
-export const THEME = createMuiTheme({
-  typography: {
-    fontFamily: `'Audiowide', cursive`,
-  },
-  palette: {
-    primary: {
-      main: "#FFCD00",
-    },
-  },
-});
+import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
   // home:
@@ -40,14 +29,12 @@ export const useStyles = makeStyles({
     color: "white",
     display: "flex",
     width: "60%",
-    marginLeft: "20%",
   },
 
   instructionText: {
     textAlign: "left",
     marginTop: "10px",
     color: "black",
-    marginLeft: "7%",
     width: "86%",
     backgroundColor: "rgba(250, 250, 250, 0.95)",
     padding: "10px",
@@ -91,7 +78,7 @@ export const useStyles = makeStyles({
     height: "50px",
     backgroundColor: "#e0bea4",
     marginBottom: "15px",
-    marginTop: "-4px",
+    marginTop: "-5px",
     paddingTop: "10px",
     fontSize: 20,
   },

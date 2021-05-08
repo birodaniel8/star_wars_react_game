@@ -1,10 +1,20 @@
 import React from "react";
 import { Provider } from "react-redux"; // wrap this around everything for redux
-import { MuiThemeProvider } from "@material-ui/core/styles";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
-import { THEME } from "../styles";
 import store from "../store";
 import App from "./App";
+
+export const THEME = createMuiTheme({
+  typography: {
+    fontFamily: `'Audiowide', cursive`,
+  },
+  palette: {
+    primary: {
+      main: "#FFCD00",
+    },
+  },
+});
 
 const Root = () => {
   return (

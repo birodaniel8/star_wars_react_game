@@ -64,7 +64,7 @@ const App = ({ data, settings, counter, selectedCard, loadData, setCard, setGame
   }, [data]);
 
   return (
-    <div className="App">
+    <div>
       <LinearProgress variant="determinate" color="primary" value={allLoaded === true ? 100 : 0} />
       <Container maxWidth="xs" align="center">
         <Header />

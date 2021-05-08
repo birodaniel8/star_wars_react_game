@@ -46,7 +46,7 @@ const App = ({ data, settings, counter, selectedCard, loadData, setCard, setGame
   };
 
   useEffect(() => loadAllData(), []);
-  useEffect(() => allLoaded && setCard("Home"), [allLoaded]);
+  useEffect(() => allLoaded && setCard("Home"), [allLoaded, setCard]);
   useEffect(() => {
     if (settings.target === selectedCard.name && settings.on === true) {
       setGameSettings({ ...settings, on: false });

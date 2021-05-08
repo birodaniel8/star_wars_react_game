@@ -4,6 +4,19 @@ const useStyles = makeStyles({
   itemBtn: {
     width: "90%",
   },
+  headerBtn: {
+    width: "100%",
+  },
+  cancelIconBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  cancelIcon: {
+    "&:hover": {
+      color: "rgba(207, 0, 15, 0.5)",
+    },
+  },
   gameCard: {
     boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
     overflow: "hidden",
@@ -39,9 +52,8 @@ const useStyles = makeStyles({
     marginTop: "20px",
   },
   exploreStartButton: {
-    width: "100%"
+    width: "100%",
   },
-  gameTitle: {},
   exploreButton: {
     fontSize: 20,
     height: "40px",
@@ -57,17 +69,17 @@ const useStyles = makeStyles({
   },
   instructionText: {
     textAlign: "left",
-    marginTop: "10px", 
+    marginTop: "10px",
     color: "black",
     marginLeft: "7%",
     width: "86%",
     backgroundColor: "rgba(250, 250, 250, 0.95)",
     padding: "10px",
-    '& p': {
+    "& p": {
       lineHeight: 1.2,
       marginBottom: "10px",
-    }
-  }
+    },
+  },
 });
 
 export default useStyles;

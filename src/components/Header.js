@@ -5,6 +5,7 @@ import { LinearProgress, Button, Container, Typography, Paper, Grid } from "@mat
 import "./App.css";
 import CancelIcon from "@material-ui/icons/Cancel";
 import StartGameButton from "./StartGameButton";
+import EmojiFlagsIcon from "@material-ui/icons/EmojiFlags";
 import { setCard } from "../actions/card";
 import { setGameSettings } from "../actions/game";
 import useStyles from "../styles";
@@ -20,24 +21,35 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
         <Grid container spacing={1}>
           <Grid item xs={8} align="center">
             <Typography>Target character: </Typography>
-            <Button style={{ width: "100%" }} onClick={() => setShowTarget(!showTarget)}>
-              {" "}
-              {settings.target}{" "}
+            <Button className={classes.headerBtn} onClick={() => setShowTarget(!showTarget)}>
+              {settings.target}
             </Button>
           </Grid>
           <Grid item xs={2} align="center">
             <Typography>Steps:</Typography>
-            <Button style={{ width: "100%" }}> {counter} </Button>
+            <Button className={classes.headerBtn}> {counter} </Button>
           </Grid>
-          <Grid item xs={2} align="center" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <CancelIcon
-              fontSize="large"
-              color="error"
-              onClick={() => {
-                setCard("Home");
-                setGameSettings({ ...settings, on: false });
-              }}
-            />
+          <Grid item xs={2} className={classes.cancelIconBox}>
+            {!showTarget ? (
+              <CancelIcon
+                className={classes.cancelIcon}
+                fontSize="large"
+                color="error"
+                onClick={() => {
+                  setCard("Home");
+                  setGameSettings({ ...settings, on: false });
+                }}
+              />
+            ) : (
+              <EmojiFlagsIcon
+                className={classes.cancelIcon}
+                fontSize="large"
+                onClick={() => {
+                  setCard("character", settings.target);
+                  setGameSettings({ ...settings, on: false, explore: true });
+                }}
+              />
+            )}
           </Grid>
           <Grid container spacing={1} align="center">
             <Grid item xs={8} hidden={!showTarget}>
@@ -46,14 +58,6 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Grid container spacing={1}>
-            <Grid item xs={6} hidden={!showTarget}>
-              Target
-            </Grid>
-            <Grid item xs={6} hidden={!showTarget}>
-              <img src={img_src} alt="" width="100%" />
-            </Grid>
-          </Grid> */}
         </Grid>
       </Paper>
     );

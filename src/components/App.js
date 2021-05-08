@@ -8,9 +8,9 @@ import Header from "./Header";
 import CardSelector from "./CardSelector";
 import { loadData } from "../actions/data";
 import { setCard } from "../actions/card";
-import { addToCounter } from "../actions/game";
+import { addToCounter, setGameSettings } from "../actions/game";
 
-const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCounter }) => {
+const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCounter, setGameSettings }) => {
   const [allLoaded, setAllLoaded] = useState(false);
 
   const loadAllData = () => {
@@ -50,6 +50,7 @@ const App = ({ data, selectedCard, setCard, loadData, settings, counter, addToCo
   useEffect(() => allLoaded && setCard("Home"), [allLoaded]);
   useEffect(() => {
     if (settings.target === selectedCard.name && settings.on === true) {
+      setGameSettings({ ...settings, on: false })
       setCard("Final");
     } else {
       addToCounter(counter);
@@ -80,6 +81,7 @@ App.propTypes = {
   setCard: PropTypes.func.isRequired,
   loadData: PropTypes.func.isRequired,
   addToCounter: PropTypes.func.isRequired,
+  setGameSettings: PropTypes.func.isRequired,
   counter: PropTypes.number.isRequired,
   settings: PropTypes.object.isRequired,
 };
@@ -92,4 +94,4 @@ const mapStateToProps = (state) => ({
   settings: state.game.settings,
 });
 
-export default connect(mapStateToProps, { setCard, loadData, addToCounter })(App);
+export default connect(mapStateToProps, { setCard, loadData, addToCounter, setGameSettings })(App);

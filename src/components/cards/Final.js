@@ -4,36 +4,33 @@ import { PropTypes } from "prop-types";
 import { Button, Container, Typography, Paper } from "@material-ui/core";
 
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
+import StartGameButton from "../StartGameButton";
 import { setCard } from "../../actions/card";
 import { setGameSettings, resetCounter } from "../../actions/game";
 
 const Final = ({ data, settings, counter, cardPath, setCard, setGameSettings, resetCounter }) => {
+  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${settings.target.replace("/", "-")}.png`;
   return (
     <Paper>
-      <Typography style={{ margin: "20px 0px", fontWeight: "bold" }}>
+      <Typography style={{ margin: "20px 0px", padding: "10px", fontWeight: "bold" }}>
         Congratulations! You have got to {settings.target} in {counter} steps.
       </Typography>
 
-      <Typography style={{ margin: "20px 0px" }}>
-        Your path:
-      </Typography>
+      <img src={img_src} alt="" width="50%" />
 
-      {cardPath.map((item) => <p><b>{item}</b></p>)}
+      <Typography style={{ marginTop: "20px", marginBottom: "10px"}}>Your path:</Typography>
 
-      <p><b>{settings.target}</b></p>
+      {cardPath.map((item) => (
+        <p>
+          <b>{item}</b>
+        </p>
+      ))}
 
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => {
-          const sampledCharacters = sampleWithoutReplacement(data.characters, 2);
-          setGameSettings({ ...settings, target: sampledCharacters[1].name, on: true });
-          setCard("character", sampledCharacters[0].name);
-          resetCounter();
-        }}
-      >
-        Start a New Game
-      </Button>
+      <p>
+        <b>{settings.target}</b>
+      </p>
+      <div style={{ marginTop: "20px" }}></div>
+      <StartGameButton buttonText="Start a New Game Now" buttonStyleClass="exploreStartButton" />
     </Paper>
   );
 };

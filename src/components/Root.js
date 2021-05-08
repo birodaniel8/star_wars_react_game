@@ -7,11 +7,8 @@ import App from "./App";
 const Root = () => {
   const THEME = createMuiTheme({
     typography: {
-      fontFamily: `'Source Code Pro', monospace`,
-      fontSize: 14,
-      fontWeightLight: 300,
-      fontWeightRegular: 400,
-      fontWeightMedium: 500,
+      fontFamily: `'Audiowide', cursive`,
+      // fontFamily: `'Source Code Pro', monospace`,
     },
     palette: {
       primary: {

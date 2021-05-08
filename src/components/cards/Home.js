@@ -45,8 +45,8 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
 
       <div className={classes.instructionText} hidden={!showInstructions}>
         <p>
-          The goal of this game is to get to a randomly selected target character from an other randomly selected
-          initial character in the least amount of steps.
+          The goal of this game is to get to a randomly selected target character from another randomly selected initial
+          character in the least amount of steps.
         </p>
 
         <p>
@@ -61,7 +61,7 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
         </p>
 
         <p>
-          In the 'explore' mode you don't play a game, however all items in a category is listed to explore the Star
+          In the 'explore' mode you don't play a game, however all items in a category are listed to explore the Star
           Wars galaxy.
         </p>
       </div>

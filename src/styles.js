@@ -1,64 +1,39 @@
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme } from "@material-ui/core/styles";
 
-const useStyles = makeStyles({
-  itemBtn: {
-    width: "90%",
+export const THEME = createMuiTheme({
+  typography: {
+    fontFamily: `'Audiowide', cursive`,
   },
-  headerBtn: {
-    width: "100%",
-  },
-  cancelIconBox: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  cancelIcon: {
-    "&:hover": {
-      color: "rgba(207, 0, 15, 0.5)",
+  palette: {
+    primary: {
+      main: "#FFCD00",
     },
   },
-  gameCard: {
-    boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
-    overflow: "hidden",
-    backgroundColor: "#f3f3f3",
-  },
-  gameCardTitle: {
-    height: "50px",
-    backgroundColor: "#e0bea4",
-    marginBottom: "15px",
-    marginTop: "-4px",
-    paddingTop: "10px",
-    fontSize: 20,
-  },
-  propertyCardTitle: {
-    height: "25px",
-    backgroundColor: "#F0EBBA",
-    marginTop: "-16px",
-    marginBottom: "10px",
-    fontSize: 15,
-  },
-  header: {
-    backgroundColor: "#f3f3f3",
-    boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
-    overflow: "hidden",
-  },
+});
+
+export const useStyles = makeStyles({
+  // home:
   homeCard: {
     backgroundColor: "rgba(255, 255, 255, 0)",
   },
+
   mainStartButton: {
     fontSize: 30,
     height: "70px",
     width: "350px",
     marginTop: "20px",
   },
+
   exploreStartButton: {
     width: "100%",
   },
+
   exploreButton: {
     fontSize: 20,
     height: "40px",
     width: "350px",
   },
+
   instructions: {
     justifyContent: "center",
     marginTop: "25px",
@@ -67,6 +42,7 @@ const useStyles = makeStyles({
     width: "60%",
     marginLeft: "20%",
   },
+
   instructionText: {
     textAlign: "left",
     marginTop: "10px",
@@ -80,6 +56,56 @@ const useStyles = makeStyles({
       marginBottom: "10px",
     },
   },
-});
 
-export default useStyles;
+  // header:
+  header: {
+    backgroundColor: "#f3f3f3",
+    boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
+    overflow: "hidden",
+  },
+
+  headerButton: {
+    width: "100%",
+  },
+
+  cancelIconBox: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  cancelIcon: {
+    "&:hover": {
+      color: "rgba(207, 0, 15, 0.5)",
+    },
+  },
+
+  // game card:
+  gameCard: {
+    boxShadow: "0px 0px 3px 3px rgba(250, 250, 250, 0.3)",
+    overflow: "hidden",
+    backgroundColor: "#f3f3f3",
+  },
+
+  gameCardTitle: {
+    height: "50px",
+    backgroundColor: "#e0bea4",
+    marginBottom: "15px",
+    marginTop: "-4px",
+    paddingTop: "10px",
+    fontSize: 20,
+  },
+
+  itemButton: {
+    width: "90%",
+  },
+
+  // property card:
+  propertyCardTitle: {
+    height: "25px",
+    backgroundColor: "#F0EBBA",
+    marginTop: "-16px",
+    marginBottom: "10px",
+    fontSize: 15,
+  },
+});

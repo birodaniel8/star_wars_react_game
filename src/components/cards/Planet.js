@@ -3,20 +3,18 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Paper, Grid, Typography } from "@material-ui/core";
 
-import useStyles from "../../styles";
+import { useStyles } from "../../styles";
 import CardItem from "./CardItem";
 
 const Planet = ({ name, data }) => {
   const classes = useStyles();
   const planet = data.planets.filter((planet) => planet.name === name)[0];
-  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${planet.name.replace("/", "-")}.png`
+  const img_src = `${process.env.PUBLIC_URL}/sw_pics/${planet.name.replace("/", "-")}.png`;
 
   return (
     <Paper className={classes.gameCard}>
-      <img src={img_src} alt="" width="100%"/>
-      <Typography className={classes.gameCardTitle}>
-        {planet.name}
-      </Typography>
+      <img src={img_src} alt="" width="100%" />
+      <Typography className={classes.gameCardTitle}>{planet.name}</Typography>
       <Grid container spacing={1}>
         <CardItem item={planet} property="climate" />
         <CardItem item={planet} property="diameter" />
@@ -41,6 +39,7 @@ const Planet = ({ name, data }) => {
 
 // PropTypes:
 Planet.propTypes = {
+  data: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
 };
 

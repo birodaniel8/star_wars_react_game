@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Button, Grid } from "@material-ui/core";
 
-import useStyles from "../../styles";
-import { setCard } from "../../actions/card";
+import { useStyles } from "../../styles";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
+import { setCard } from "../../actions/card";
 
 const getByURL = (propertyItemList, url, fieldName = "name") => {
   // returns the item's fieldName value given by the url
@@ -29,7 +29,7 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
         return sampledItems.map((i) => {
           const name = getByURL(propertyItemList, i, fieldName);
           return (
-            <Button className={classes.itemBtn} variant="contained" onClick={() => setCard(setCardType, name)}>
+            <Button className={classes.itemButton} variant="contained" onClick={() => setCard(setCardType, name)}>
               {name}
             </Button>
           );
@@ -38,7 +38,7 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
       // if the property is a single url:
       const name = getByURL(propertyItemList, item[property], fieldName);
       return (
-        <Button className={classes.itemBtn} variant="contained" onClick={() => setCard(setCardType, name)}>
+        <Button className={classes.itemButton} variant="contained" onClick={() => setCard(setCardType, name)}>
           {name}
         </Button>
       );
@@ -48,7 +48,7 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
     if (splittetProperty.length > 1) {
       return splittetProperty.map((sp) => (
         <Button
-          className={classes.itemBtn}
+          className={classes.itemButton}
           variant="contained"
           onClick={() => setCard(setCardType, sp, { property: property, fieldName: fieldName })}
         >
@@ -60,7 +60,7 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
     // if the property is a single value:
     return (
       <Button
-        className={classes.itemBtn}
+        className={classes.itemButton}
         variant="contained"
         onClick={() => setCard(setCardType, item[property], { property: property, fieldName: fieldName })}
       >
@@ -72,8 +72,8 @@ const CardItem = ({ item, property, propertyName, propertyItemList, fieldName, s
   // rendering the item if the item[property] is available:
   if (item[property] && item[property] !== "unknown" && item[property] !== "n/a" && item[property].length > 0) {
     return (
-      <Grid container spacing={1} style={{marginBottom: "3px"}}>
-        <Grid item xs={5} align="right">
+      <Grid container spacing={1} style={{ marginBottom: "3px" }}>
+        <Grid item xs={5} align="right" style={{ paddingTop: "10px" }}>
           <b>{propertyName}:</b>
         </Grid>
         <Grid item xs={7} align="left">
@@ -103,9 +103,4 @@ CardItem.defaultProps = {
   setCardType: "property",
 };
 
-// mapStateToProps:
-const mapStateToProps = (state) => ({
-  data: state.data.data,
-});
-
-export default connect(mapStateToProps, { setCard })(CardItem);
+export default connect(null, { setCard })(CardItem);

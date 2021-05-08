@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { Button, Container, Typography, Paper, Grid } from "@material-ui/core";
+import { Paper, Button, Typography } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
-import useStyles from "../../styles";
+import { useStyles } from "../../styles";
 import StartGameButton from "../StartGameButton";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 import { setGameSettings, resetCounter } from "../../actions/game";
-
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 
 const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
   const classes = useStyles();
@@ -20,8 +19,8 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
   return (
     <Paper className={classes.homeCard}>
       <img src={img_src} alt="" width="100%" />
+
       <StartGameButton buttonText="Start Game" buttonStyleClass="mainStartButton" />
-      <div></div>
       <Button
         className={classes.exploreButton}
         variant="contained"
@@ -72,10 +71,11 @@ const Home = ({ data, settings, setCard, setGameSettings, resetCounter }) => {
 
 // PropTypes:
 Home.propTypes = {
+  data: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
   setCard: PropTypes.func.isRequired,
   setGameSettings: PropTypes.func.isRequired,
   resetCounter: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired,
 };
 
 // mapStateToProps:

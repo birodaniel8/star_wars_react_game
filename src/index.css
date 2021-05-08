@@ -1,12 +1,10 @@
 body {
-  /* background-color: grey; */
   background: url("https://i.pinimg.com/originals/d7/a6/11/d7a61190a836bdcfc62bf97af4f4c74b.png") repeat top center;
   background-attachment: fixed;
 }
 
 * {
   font-family: 'Audiowide', cursive;
-  /* font-family: Source Code Pro, monospace; */
   margin: 0;
   padding: 0;
   box-sizing: border-box;

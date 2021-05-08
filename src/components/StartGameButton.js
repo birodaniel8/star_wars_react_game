@@ -2,12 +2,13 @@ import React from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Button } from "@material-ui/core";
+
+import { useStyles } from "../styles";
 import sampleWithoutReplacement from "./SampleWithoutReplacement";
 import { setCard } from "../actions/card";
 import { setGameSettings, resetCounter } from "../actions/game";
-import useStyles from "../styles";
 
-const StartGameButton = ({ buttonText, setGameSettings, setCard, resetCounter, settings, data, buttonStyleClass }) => {
+const StartGameButton = ({ buttonText, buttonStyleClass, data, settings, setCard, setGameSettings, resetCounter }) => {
   const classes = useStyles();
 
   return (
@@ -30,11 +31,12 @@ const StartGameButton = ({ buttonText, setGameSettings, setCard, resetCounter, s
 // PropTypes:
 StartGameButton.propTypes = {
   buttonText: PropTypes.string.isRequired,
+  buttonStyleClass: PropTypes.string.isRequired,
+  data: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
   setCard: PropTypes.func.isRequired,
   setGameSettings: PropTypes.func.isRequired,
   resetCounter: PropTypes.func.isRequired,
-  settings: PropTypes.object.isRequired,
-  buttonStyleClass: PropTypes.string.isRequired,
 };
 
 // mapStateToProps:

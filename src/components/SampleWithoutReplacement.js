@@ -2,7 +2,7 @@ const sampleWithoutReplacement = (bucket, n) => {
   n = Math.min(n, bucket.length);
 
   // Array of indeces 0 to n:
-  var idxs = [...Array(bucket.length).keys()]
+  var idxs = [...Array(bucket.length).keys()];
 
   // Select a random index and remove it while returning:
   const getRandomIndex = () => {
@@ -18,4 +18,4 @@ const sampleWithoutReplacement = (bucket, n) => {
   return sampled;
 };
 
-export default sampleWithoutReplacement
+export default sampleWithoutReplacement;

@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { LinearProgress, Button, Container, Typography, Paper, Grid } from "@material-ui/core";
-import "./App.css";
+import { Paper, Grid, Button, Typography } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
-import StartGameButton from "./StartGameButton";
 import EmojiFlagsIcon from "@material-ui/icons/EmojiFlags";
+
+import { useStyles } from "../styles";
+import StartGameButton from "./StartGameButton";
 import { setCard } from "../actions/card";
 import { setGameSettings } from "../actions/game";
-import useStyles from "../styles";
 
-const Header = ({ counter, settings, setCard, setGameSettings }) => {
+const Header = ({ settings, counter, setCard, setGameSettings }) => {
   const classes = useStyles();
   const [showTarget, setShowTarget] = useState(false);
 
@@ -21,13 +21,13 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
         <Grid container spacing={1}>
           <Grid item xs={8} align="center">
             <Typography>Target character: </Typography>
-            <Button className={classes.headerBtn} onClick={() => setShowTarget(!showTarget)}>
+            <Button className={classes.headerButton} onClick={() => setShowTarget(!showTarget)}>
               {settings.target}
             </Button>
           </Grid>
           <Grid item xs={2} align="center">
             <Typography>Steps:</Typography>
-            <Button className={classes.headerBtn}> {counter} </Button>
+            <Button className={classes.headerButton}> {counter} </Button>
           </Grid>
           <Grid item xs={2} className={classes.cancelIconBox}>
             {!showTarget ? (
@@ -45,6 +45,7 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
                 className={classes.cancelIcon}
                 fontSize="large"
                 onClick={() => {
+                  setShowTarget(!showTarget);
                   setCard("character", settings.target);
                   setGameSettings({ ...settings, on: false, explore: true });
                 }}
@@ -70,16 +71,16 @@ const Header = ({ counter, settings, setCard, setGameSettings }) => {
 
 // PropTypes:
 Header.propTypes = {
-  setCard: PropTypes.func.isRequired,
-  counter: PropTypes.number.isRequired,
   settings: PropTypes.object.isRequired,
+  counter: PropTypes.number.isRequired,
+  setCard: PropTypes.func.isRequired,
   setGameSettings: PropTypes.func.isRequired,
 };
 
 // mapStateToProps:
 const mapStateToProps = (state) => ({
-  counter: state.game.counter,
   settings: state.game.settings,
+  counter: state.game.counter,
 });
 
 export default connect(mapStateToProps, { setCard, setGameSettings })(Header);

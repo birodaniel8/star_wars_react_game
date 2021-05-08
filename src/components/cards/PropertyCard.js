@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { Paper, Grid, Button, Typography } from "@material-ui/core";
 
-import useStyles from "../../styles";
+import { useStyles } from "../../styles";
 import sampleWithoutReplacement from "../SampleWithoutReplacement";
 import { setCard } from "../../actions/card";
 
-const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard, settings }) => {
+const PropertyCard = ({ data, settings, name, propertyInfo, selectedSpecialCard, setCard }) => {
   const classes = useStyles();
 
   const pluralizedSelectedSpecialCard =
@@ -41,14 +41,15 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard, 
     );
   }
 
-  var sampledList
+  var sampledList;
+  // sample 5 random items in game mode:
   if (settings.explore) {
-    sampledList = filteredList
+    sampledList = filteredList;
   } else {
     sampledList = sampleWithoutReplacement(filteredList, 5);
   }
 
-    
+  // property name formatting:
   var propertyName = propertyInfo.property.charAt(0).toUpperCase() + propertyInfo.property.slice(1);
   propertyName = propertyName.replace(/_/g, " ");
 
@@ -57,23 +58,21 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard, 
       <Typography className={classes.gameCardTitle}>{name}</Typography>
       <Typography className={classes.propertyCardTitle}>({propertyName})</Typography>
       <Grid container spacing={1}>
-        <Grid container spacing={1}>
-          <Grid item xs={5} align="right">
-            <b>{pluralizedSelectedSpecialCard.charAt(0).toUpperCase() + pluralizedSelectedSpecialCard.slice(1)}:</b>
-          </Grid>
-          <Grid item xs={7} align="left">
-            {sampledList.map((element) => {
-              return (
-                <Button
-                  className={classes.itemBtn}
-                  variant="contained"
-                  onClick={() => setCard(selectedSpecialCard, element[propertyInfo.fieldName])}
-                >
-                  {element[propertyInfo.fieldName]}
-                </Button>
-              );
-            })}
-          </Grid>
+        <Grid item xs={5} align="right" style={{ paddingTop: "10px" }}>
+          <b>{pluralizedSelectedSpecialCard.charAt(0).toUpperCase() + pluralizedSelectedSpecialCard.slice(1)}:</b>
+        </Grid>
+        <Grid item xs={7} align="left">
+          {sampledList.map((element) => {
+            return (
+              <Button
+                className={classes.itemButton}
+                variant="contained"
+                onClick={() => setCard(selectedSpecialCard, element[propertyInfo.fieldName])}
+              >
+                {element[propertyInfo.fieldName]}
+              </Button>
+            );
+          })}
         </Grid>
       </Grid>
     </Paper>
@@ -82,15 +81,19 @@ const PropertyCard = ({ name, propertyInfo, data, selectedSpecialCard, setCard, 
 
 // PropTypes:
 PropertyCard.propTypes = {
+  data: PropTypes.object.isRequired,
+  settings: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   propertyInfo: PropTypes.string.isRequired,
+  selectedSpecialCard: PropTypes.string.isRequired,
+  setCard: PropTypes.func.isRequired,
 };
 
 // mapStateToProps:
 const mapStateToProps = (state) => ({
   data: state.data.data,
-  selectedSpecialCard: state.card.selectedSpecialCard,
   settings: state.game.settings,
+  selectedSpecialCard: state.card.selectedSpecialCard,
 });
 
 export default connect(mapStateToProps, { setCard })(PropertyCard);
